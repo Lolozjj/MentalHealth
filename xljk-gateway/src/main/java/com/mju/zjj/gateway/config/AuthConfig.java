@@ -1,0 +1,20 @@
+package com.mju.zjj.gateway.config;
+
+import com.mju.zjj.auth.utils.JwtUtil;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * @author ：zhengjunjie
+ * @date ：Created in 2021/3/21 13:30
+ * @description：
+ * @modified By：
+ * @version: 1.0.0
+ */
+@Configuration
+public class AuthConfig {
+    @Bean
+    public JwtUtil getJwtUtil(){
+        return new JwtUtil();
+    }
+}

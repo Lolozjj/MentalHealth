@@ -1,0 +1,95 @@
+server:
+  port: 8765
+
+#请求和响应GZIP压缩支持
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: true
+
+spring:
+  application:
+      name: XLJK-GATEWAY
+  redis:
+      database: 2
+      host: 127.0.0.1
+      jedis:
+        pool:
+            max-active: 20
+  rabbitmq:
+      host: ${RABBIT_MQ_HOST:localhost}
+      port:  ${RABBIT_MQ_PORT:5672}
+      username: guest
+      password: guest
+  sleuth:
+    enabled: false
+    http:
+      legacy:
+        enabled: true
+  cloud:
+     gateway:
+       default-filters:
+         - DedupeResponseHeader=Access-Control-Allow-Origin
+       globalcors:
+#         add-to-simple-url-handler-mapping: true
+#         corsConfigurations:
+#           '[/**]':
+#             allowed-origins: "*"
+#             allowed-methods: "*"
+#             allowed-headers: "*"
+#             allow-credentials: true
+       discovery:
+         locator:
+           lowerCaseServiceId: true
+           enabled: true
+       routes:
+        - id: lolo-captcha
+          uri: lb://XLJK-ADMIN
+          predicates:
+            - Path=/captcha
+        - id: lolo-captcha
+          uri: lb://XLJK-ADMIN
+          predicates:
+            - Path=/auth/*
+        - id: lolo-menu
+          uri: lb://XLJK-ADMIN
+          predicates:
+            - Path=/adminMenu/*
+        - id: lolo-role
+          uri: lb://XLJK-ADMIN
+          predicates:
+            - Path=/adminRole/*
+        - id: lolo-user
+          uri: lb://XLJK-ADMIN
+          predicates:
+            - Path=/adminUser/*
+     nacos:
+        discovery:
+          server-addr: 127.0.0.1:8848
+     loadbalancer:
+       ribbon:
+         enabled: false
+  sentinel:
+    transport:
+      dashboard: localhost:8080
+logging:
+  level:
+    com.mju.zjj.gate: info
+
+gate:
+  ignore:
+    startWith: /auth/jwt,/auth/captcha
+
+
+config:
+  jwt:
+    expire: 50000
+    secret: wozhidao
