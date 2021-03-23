@@ -1,9 +1,8 @@
 package com.mju.zjj.common.biz;
 
 import com.mju.zjj.common.entity.BaseEntity;
-import com.mju.zjj.common.response.BaseResponse;
-import com.mju.zjj.common.response.ObjectResponse;
 import com.mju.zjj.common.service.BaseService;
+import com.mju.zjj.common.utils.BaseEntityTools;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -21,6 +20,8 @@ public class BaseBiz<Ser extends BaseService> {
 
 
     public <T extends BaseEntity> void insertSelective(T entity) {
+        BaseEntityTools.setCrtArr(entity);
+        BaseEntityTools.setUpdArr(entity);
         service.insertBySelective(entity);
     }
 
@@ -29,6 +30,7 @@ public class BaseBiz<Ser extends BaseService> {
     }
 
     public <T extends BaseEntity> void updateSelective(T entity) {
+        BaseEntityTools.setUpdArr(entity);
         service.updateBySelective(entity);
     }
 

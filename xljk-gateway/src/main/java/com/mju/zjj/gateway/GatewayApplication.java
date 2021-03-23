@@ -1,6 +1,7 @@
 package com.mju.zjj.gateway;
 
 //import com.mju.zjj.auth.anotation.EnableAuthConfiguration;
+import com.mju.zjj.gateway.utils.DBLog;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -13,10 +14,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @version: 1.0.0
  */
 @SpringBootApplication
-//@EnableFeignClients
-//@EnableAuthConfiguration
+@EnableFeignClients({"com.mju.zjj.gateway.feign"})
 public class GatewayApplication {
+
     public static void main(String[] args) {
+        DBLog.getInstance().start();
         SpringApplication.run(GatewayApplication.class,args);
     }
 }

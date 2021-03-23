@@ -16,10 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminUser extends BaseEntity {
-    /**
-     * id
-     */
-    private Integer id;
+
     /**
      * 管理员 编号
      */

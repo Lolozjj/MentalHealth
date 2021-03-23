@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableTransactionManagement
-//@EnableAuthConfiguration
 @MapperScan("com.mju.zjj.admin.mapper")
 public class AdminApplication {
     public static void main(String[] args) {

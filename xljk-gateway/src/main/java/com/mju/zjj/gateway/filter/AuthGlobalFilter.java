@@ -4,12 +4,11 @@ import com.mju.zjj.auth.constants.AuthConstants;
 import com.mju.zjj.auth.exception.AdminTokenErrorException;
 import com.mju.zjj.auth.exception.AdminTokenNotFindException;
 import com.mju.zjj.auth.utils.IJwtUtil;
-import com.mju.zjj.gateway.rest.AuthRest;
-import io.jsonwebtoken.Jwt;
+import com.mju.zjj.common.context.CurUserContext;
+import com.mju.zjj.common.entity.CurUserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -22,6 +21,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,7 +35,6 @@ import java.util.List;
 @Slf4j
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
-    private AuthRest authRest;
 
     private List<String> noVerifyUri(){
         return Arrays.asList("/auth/login",
@@ -63,6 +62,10 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         if(!jwtUtil.verifyToken(token)){
             throw new AdminTokenErrorException("非法token");
         }
+        else{
+            /**token 检验通过*/
+//            setCurUser(token,request);
+        }
         return chain.filter(exchange);
     }
 
@@ -70,4 +73,15 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
     public int getOrder() {
         return 0;
     }
+
+    private void setCurUser(String token,ServerHttpRequest request){
+        CurUserContext.set(new CurUserInfo(
+                new Date(),
+                jwtUtil.getUserIdByToken(token),
+                jwtUtil.getUserNameByToken(token),
+                request.getURI().getHost()
+        ));
+    }
+
+
 }

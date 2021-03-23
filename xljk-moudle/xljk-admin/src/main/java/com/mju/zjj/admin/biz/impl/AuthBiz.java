@@ -35,7 +35,7 @@ public class AuthBiz implements IAuthBiz {
         AdminUser adminUser = adminUserBiz.selectByUsername(username);
         boolean isTrueCaptcha = captchaBiz.verify(uuid, verCode);
         if(isTrueCaptcha&& isTruePassword){
-            return jwtUtil.createToken(adminUser.getId());
+            return jwtUtil.createToken((Integer) adminUser.getId());
         }
         return "";
     }

@@ -1,4 +1,4 @@
-package com.mju.zjj.admin.enetity;
+package com.mju.zjj.common.entity;
 
 import com.mju.zjj.common.entity.BaseEntity;
 import lombok.AllArgsConstructor;

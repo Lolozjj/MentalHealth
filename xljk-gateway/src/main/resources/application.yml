@@ -55,7 +55,7 @@ spring:
           uri: lb://XLJK-ADMIN
           predicates:
             - Path=/captcha
-        - id: lolo-captcha
+        - id: lolo-auth
           uri: lb://XLJK-ADMIN
           predicates:
             - Path=/auth/*
@@ -76,7 +76,7 @@ spring:
           server-addr: 127.0.0.1:8848
      loadbalancer:
        ribbon:
-         enabled: false
+         enabled: true
   sentinel:
     transport:
       dashboard: localhost:8080
@@ -91,5 +91,5 @@ gate:
 
 config:
   jwt:
-    expire: 50000
+    expire: 50000000
     secret: wozhidao

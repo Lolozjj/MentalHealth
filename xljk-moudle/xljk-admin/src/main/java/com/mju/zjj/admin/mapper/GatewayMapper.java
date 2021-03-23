@@ -1,6 +1,6 @@
 package com.mju.zjj.admin.mapper;
 
-import com.mju.zjj.admin.enetity.GatewayLog;
+import com.mju.zjj.common.entity.GatewayLog;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

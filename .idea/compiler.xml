@@ -8,8 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="xljk-gateway" />
         <module name="xljk-auth-sdk" />
-        <module name="xljk-common" />
         <module name="xljk-admin" />
+        <module name="xljk-common" />
       </profile>
     </annotationProcessing>
   </component>
